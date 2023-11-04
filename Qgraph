@@ -1,0 +1,35 @@
+setwd("E:/Qgraph in R")
+Crime<-read.csv("E:/Qgraph in R/socialnetworkdata.csv", header=TRUE)
+attach(Crime)
+print(Crime)
+require(qgraph)
+require(igraph)
+Bik<-data.frame(Crime$first, Crime$second, Crime$Third)
+Con<-graph.data.frame(Bik, directed = TRUE)
+Con
+V(Con)
+V(Con)$label<-V(Con)$name
+V(Con)$label<-degree(Con)
+V(Con)$label
+set.seed(444)
+plot(Con,
+     vertex.color = 'darkgreen', repel=TRUE,
+     vertex.size = 6,
+     labels = 'var',
+     edge.arrow.size = 0.09,
+     vertex.label.cex = 1,
+     edge.color = "red",
+     label.cex = 0.8
+     )
+#to remove the overrllaped data sets 
+layout_con <- layout.fruchterman.reingold(Con)
+plot(Con,
+     layout = layout_con,
+     vertex.color = 'darkgreen',
+     vertex.size = 8,
+     labels = TRUE,
+     edge.arrow.size = 0.1,
+     vertex.label.cex = 1,
+     edge.color = "red",
+     label.cex = 0.8
+)
